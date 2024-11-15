@@ -69,10 +69,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.unincor.va1</groupId>
-			<artifactId>sistema-manutencao-carros</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.1.Final</version>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -1,7 +1,6 @@
 package com.sistemaconsulta.gestao.model.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class Medico implements Serializable {
 	@JoinColumn(name="especialidade_id")
 	private Especialidade especialidade;
 	
-	private List<String> horariosDisponiveis;
+	
 }
 
 
