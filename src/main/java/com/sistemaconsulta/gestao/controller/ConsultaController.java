@@ -52,5 +52,10 @@ public class ConsultaController {
         return ResponseEntity.ok().body(consulta.get());
     }
 
+    @PutMapping
+    public Consulta atualizar(@Valid @RequestBody Consulta consulta){
+        return consultaService.atualizar(consulta);
+    }
+
     
 }

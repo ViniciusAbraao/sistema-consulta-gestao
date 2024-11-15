@@ -9,7 +9,7 @@ import com.sistemaconsulta.gestao.model.domain.Consulta;
 public interface ConsultaService {
 
     Consulta salvar(Consulta consulta) throws ConsultaSalvarException;
-    void atualizar(Consulta consulta);
+    Consulta atualizar(Consulta consulta);
     void deletar(Consulta consulta);
     List<Consulta> listar();
     

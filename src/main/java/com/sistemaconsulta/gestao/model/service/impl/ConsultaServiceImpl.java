@@ -18,8 +18,8 @@ public class ConsultaServiceImpl implements ConsultaService {
     private ConsultaRepository consultaRepository;
 
     @Override
-    public void atualizar(Consulta consulta) {
-        consultaRepository.save(consulta);
+    public Consulta atualizar(Consulta consulta) {
+        return consultaRepository.save(consulta);
     }
 
     @Override
