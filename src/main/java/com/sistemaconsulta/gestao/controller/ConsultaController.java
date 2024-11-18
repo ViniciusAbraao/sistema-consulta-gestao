@@ -1,5 +1,6 @@
 package com.sistemaconsulta.gestao.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ import com.sistemaconsulta.gestao.model.service.ConsultaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/consulta")
+@RequestMapping("/consultas")
 public class ConsultaController {
 
     @Autowired
@@ -56,6 +57,19 @@ public class ConsultaController {
     public Consulta atualizar(@Valid @RequestBody Consulta consulta){
         return consultaService.atualizar(consulta);
     }
+    
+    @PostMapping("/agendar")
+    public ResponseEntity<Consulta> agendarConsulta(@RequestBody Consulta consulta){
+    	var consultaAgendada = consultaService.agendarConsulta(consulta);
+    	return ResponseEntity.ok(consultaAgendada);
+    }
+    
+    @PutMapping("/{consultaId}/cancelar")
+    public ResponseEntity<Consulta> cancelarConsulta(@PathVariable Long consultaId) {
+        Consulta consultaCancelada = consultaService.cancelarConsulta(consultaId);
+        return ResponseEntity.ok(consultaCancelada);
+    }
+    
 
     
 }

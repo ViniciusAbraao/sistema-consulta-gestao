@@ -1,5 +1,8 @@
 package com.sistemaconsulta.gestao.model.service;
 
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.sistemaconsulta.gestao.exceptions.MedicoSalvarException;
@@ -11,5 +14,7 @@ public interface MedicoService {
     void atualizar(Medico medico);
     void deletar(Medico medico);
     List<Medico> listar();
+    List<Medico> listarPorEspecialidade(Long especialidadeId);
+    List<LocalDateTime> listarHorariosDisponiveis(Long medicoId);
 
 }

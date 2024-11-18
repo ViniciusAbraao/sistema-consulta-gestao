@@ -1,6 +1,8 @@
 package com.sistemaconsulta.gestao.model.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,34 +26,13 @@ public class Medico implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
-	
+
 	@ManyToOne
-	@JoinColumn(name="especialidade_id")
+	@JoinColumn(name = "especialidade_id")
 	private Especialidade especialidade;
-	
-	
+
+	private List<LocalDateTime> horariosDisponiveis;
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

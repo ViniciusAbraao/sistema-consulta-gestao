@@ -1,5 +1,7 @@
 package com.sistemaconsulta.gestao.controller;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +24,51 @@ import jakarta.validation.Valid;
 @RequestMapping("/medico")
 public class MedicoController {
 
-    @Autowired
-    private MedicoService medicoService;
+	@Autowired
+	private MedicoService medicoService;
 
-    @Autowired
-    private MedicoRepository medicoRepository;
+	@Autowired
+	private MedicoRepository medicoRepository;
 
-    @PostMapping
-    public Medico salvar(@Valid @RequestBody Medico medico)
-            throws MedicoSalvarException {
-        return medicoService.salvar(medico);
-    }
+	@PostMapping
+	public Medico salvar(@Valid @RequestBody Medico medico) throws MedicoSalvarException {
+		return medicoService.salvar(medico);
+	}
 
-    @GetMapping
-    public List<Medico> listar() {
-        return medicoService.listar();
-    }
+	@GetMapping
+	public List<Medico> listar() {
+		return medicoService.listar();
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Medico> buscarPorId(@PathVariable("id") Long id) {
-        var medico = medicoRepository.findById(id);
-        if (!medico.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(medico.get());
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<Medico> buscarPorId(@PathVariable("id") Long id) {
+		var medico = medicoRepository.findById(id);
+		if (!medico.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(medico.get());
+	}
+
+	@GetMapping("/especialidade/{especialidadeId}")
+	public ResponseEntity<List<Medico>> listarPorEspecialidade(@PathVariable Long especialidadeId) {
+		List<Medico> medicos = medicoService.listarPorEspecialidade(especialidadeId);
+		return ResponseEntity.ok(medicos);
+	}
+	
+	@GetMapping("/{medicoId}/horarios-disponiveis")
+	public ResponseEntity<List<LocalDateTime>> listarHorariosDisponiveis(Long medicoId){
+		List<LocalDateTime> horarios = medicoService.listarHorariosDisponiveis(medicoId);
+		return ResponseEntity.ok(horarios);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
-

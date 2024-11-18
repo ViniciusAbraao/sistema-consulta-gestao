@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistemaconsulta.gestao.exceptions.PacienteSalvarException;
+import com.sistemaconsulta.gestao.model.domain.Consulta;
 import com.sistemaconsulta.gestao.model.domain.Paciente;
 import com.sistemaconsulta.gestao.model.repository.PacienteRepository;
+import com.sistemaconsulta.gestao.model.service.ConsultaService;
 import com.sistemaconsulta.gestao.model.service.PacienteService;
 
 import jakarta.validation.Valid;
@@ -27,6 +29,7 @@ public class PacienteController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+    
 
     @PostMapping
     public Paciente salvar(@Valid @RequestBody Paciente paciente)
@@ -47,4 +50,27 @@ public class PacienteController {
         }
         return ResponseEntity.ok().body(paciente.get());
     }
+    
+    @GetMapping("/paciente/{pacienteId}")
+	public ResponseEntity<List<Consulta>> listarHistorico(@PathVariable Long pacienteId) {
+	    List<Consulta> historico = pacienteService.listarHistorico(pacienteId);
+	    return ResponseEntity.ok(historico);
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
