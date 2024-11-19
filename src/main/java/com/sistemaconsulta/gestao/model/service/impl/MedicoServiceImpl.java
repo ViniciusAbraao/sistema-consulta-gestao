@@ -1,12 +1,12 @@
 package com.sistemaconsulta.gestao.model.service.impl;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.sistemaconsulta.gestao.exceptions.MedicoSalvarException;
 import com.sistemaconsulta.gestao.model.domain.Medico;
 import com.sistemaconsulta.gestao.model.repository.ConsultaRepository;
@@ -48,13 +48,18 @@ public class MedicoServiceImpl implements MedicoService {
 	}
 
 	@Override
-	public List<LocalDateTime> listarHorariosDisponiveis(Long medicoId) {
-		var medico = medicoRepository.findById(medicoId)
-				.orElseThrow(() -> new RuntimeException("Médico não encontrado"));
+	public List<LocalTime> listarHorariosDisponiveis(Long medicoId) {
+    if (medicoId == null) {
+        throw new IllegalArgumentException("O ID do médico não pode ser nulo.");
+    }
 
-		List<LocalDateTime> horariosLivres = new ArrayList(medico.getHorariosDisponiveis());
+    var medico = medicoRepository.findById(medicoId)
+            .orElseThrow(() -> new RuntimeException("Médico não encontrado"));
 
-		return horariosLivres;
-	}
+    
+    List<LocalTime> horariosLivres = new ArrayList<>(medico.getHorariosDisponiveis());
+
+    return horariosLivres;
+}
 
 }

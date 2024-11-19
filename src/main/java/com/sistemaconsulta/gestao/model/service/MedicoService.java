@@ -1,7 +1,6 @@
 package com.sistemaconsulta.gestao.model.service;
 
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,6 +14,6 @@ public interface MedicoService {
     void deletar(Medico medico);
     List<Medico> listar();
     List<Medico> listarPorEspecialidade(Long especialidadeId);
-    List<LocalDateTime> listarHorariosDisponiveis(Long medicoId);
+    List<LocalTime> listarHorariosDisponiveis(Long medicoId);
 
 }
