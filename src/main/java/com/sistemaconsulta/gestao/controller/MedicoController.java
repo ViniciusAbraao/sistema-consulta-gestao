@@ -1,6 +1,5 @@
 package com.sistemaconsulta.gestao.controller;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -21,7 +20,7 @@ import com.sistemaconsulta.gestao.model.service.MedicoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/medico")
+@RequestMapping("/medicos")
 public class MedicoController {
 
 	@Autowired
@@ -55,11 +54,11 @@ public class MedicoController {
 		return ResponseEntity.ok(medicos);
 	}
 	
-	@GetMapping("/{medicoId}/horarios-disponiveis")
-	public ResponseEntity<List<LocalDateTime>> listarHorariosDisponiveis(Long medicoId){
-		List<LocalDateTime> horarios = medicoService.listarHorariosDisponiveis(medicoId);
-		return ResponseEntity.ok(horarios);
-	}
+	@GetMapping("/{id}/horarios-disponiveis")
+	public ResponseEntity<List<LocalTime>> listarHorariosDisponiveis(@PathVariable Long id) {
+    List<LocalTime> horarios = medicoService.listarHorariosDisponiveis(id);
+    return ResponseEntity.ok(horarios);
+}
 	
 	
 	

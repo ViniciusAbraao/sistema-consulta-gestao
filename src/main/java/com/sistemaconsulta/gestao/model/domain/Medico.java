@@ -1,7 +1,7 @@
 package com.sistemaconsulta.gestao.model.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -33,6 +33,6 @@ public class Medico implements Serializable {
 	@JoinColumn(name = "especialidade_id")
 	private Especialidade especialidade;
 
-	private List<LocalDateTime> horariosDisponiveis;
+	private List<LocalTime> horariosDisponiveis;
 
 }
