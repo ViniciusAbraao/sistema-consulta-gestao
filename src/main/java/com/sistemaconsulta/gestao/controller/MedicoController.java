@@ -5,14 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistemaconsulta.gestao.exceptions.MedicoSalvarException;
+import com.sistemaconsulta.gestao.model.domain.Especialidade;
 import com.sistemaconsulta.gestao.model.domain.Medico;
 import com.sistemaconsulta.gestao.model.repository.MedicoRepository;
 import com.sistemaconsulta.gestao.model.service.MedicoService;
@@ -53,21 +56,32 @@ public class MedicoController {
 		List<Medico> medicos = medicoService.listarPorEspecialidade(especialidadeId);
 		return ResponseEntity.ok(medicos);
 	}
-	
+
 	@GetMapping("/{id}/horarios-disponiveis")
 	public ResponseEntity<List<LocalTime>> listarHorariosDisponiveis(@PathVariable Long id) {
-    List<LocalTime> horarios = medicoService.listarHorariosDisponiveis(id);
-    return ResponseEntity.ok(horarios);
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		List<LocalTime> horarios = medicoService.listarHorariosDisponiveis(id);
+		return ResponseEntity.ok(horarios);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity editar(@PathVariable Long id, @Valid @RequestBody Medico novoMedico) {
+		var med = medicoRepository.findById(id);
+		if (!med.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		novoMedico.setId(id);
+		Medico medico = medicoRepository.save(novoMedico);
+		return ResponseEntity.ok(medico);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		var med = medicoRepository.findById(id);
+		if (!med.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		medicoRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }

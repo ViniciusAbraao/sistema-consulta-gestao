@@ -13,10 +13,6 @@ public interface ConsultaService {
 
 	Consulta salvar(Consulta consulta) throws ConsultaSalvarException;
 
-	Consulta atualizar(Consulta consulta);
-
-	void deletar(Consulta consulta);
-
 	Consulta agendarConsulta(Consulta consulta);
 	
 	Consulta cancelarConsulta(Long consultaId);

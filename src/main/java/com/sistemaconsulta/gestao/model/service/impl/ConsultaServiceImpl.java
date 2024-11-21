@@ -30,16 +30,6 @@ public class ConsultaServiceImpl implements ConsultaService {
     private PacienteRepository pacienteRepository;
 
     @Override
-    public Consulta atualizar(Consulta consulta) {
-        return consultaRepository.save(consulta);
-    }
-
-    @Override
-    public void deletar(Consulta consulta) {
-        consultaRepository.delete(consulta);
-    }
-
-    @Override
     public List<Consulta> listar() {
         return consultaRepository.findAll();
     }

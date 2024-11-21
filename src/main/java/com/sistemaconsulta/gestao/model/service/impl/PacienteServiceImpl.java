@@ -21,16 +21,6 @@ public class PacienteServiceImpl implements PacienteService {
     private ConsultaRepository consultaRepository;
 
     @Override
-    public void atualizar(Paciente paciente) {
-        pacienteRepository.save(paciente);
-    }
-
-    @Override
-    public void deletar(Paciente paciente) {
-        pacienteRepository.delete(paciente);
-    }
-
-    @Override
     public List<Paciente> listar() {
         return pacienteRepository.findAll();
     }

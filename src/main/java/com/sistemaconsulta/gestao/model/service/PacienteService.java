@@ -8,8 +8,6 @@ import com.sistemaconsulta.gestao.model.domain.Paciente;
 public interface PacienteService {
 
     Paciente salvar(Paciente paciente) throws PacienteSalvarException;
-    void atualizar(Paciente paciente);
-    void deletar(Paciente paciente);
     List<Paciente> listar();
     
 

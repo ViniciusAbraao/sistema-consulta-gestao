@@ -16,17 +16,6 @@ public class EspecialidadeServiceImpl implements EspecialidadeService{
     @Autowired
     private EspecialidadeRepository especialidadeRepository;
 
-
-    @Override
-    public void atualizar(Especialidade especialidade) {
-        especialidadeRepository.save(especialidade);
-    }
-
-    @Override
-    public void deletar(Especialidade especialidade) {
-        especialidadeRepository.delete(especialidade);
-    }
-
     @Override
     public List<Especialidade> listar() {
         return especialidadeRepository.findAll();

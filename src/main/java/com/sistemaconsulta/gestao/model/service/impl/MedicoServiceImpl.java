@@ -22,15 +22,6 @@ public class MedicoServiceImpl implements MedicoService {
 	@Autowired
 	private ConsultaRepository consultaRepository;
 
-	@Override
-	public void atualizar(Medico medico) {
-		medicoRepository.save(medico);
-	}
-
-	@Override
-	public void deletar(Medico medico) {
-		medicoRepository.delete(medico);
-	}
 
 	@Override
 	public List<Medico> listar() {
