@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistemaconsulta.gestao.exceptions.PacienteSalvarException;
+import com.sistemaconsulta.gestao.model.domain.Historico;
 import com.sistemaconsulta.gestao.model.domain.Paciente;
+import com.sistemaconsulta.gestao.model.repository.HistoricoRepository;
 import com.sistemaconsulta.gestao.model.repository.PacienteRepository;
 import com.sistemaconsulta.gestao.model.service.PacienteService;
 
@@ -27,6 +29,9 @@ public class PacienteController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private HistoricoRepository historicoRepository;
     
 
     @PostMapping
@@ -47,6 +52,28 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(paciente.get());
+    }
+
+    @PostMapping("/{id}/historico")
+    public ResponseEntity<Historico> adicionarHistorico(@PathVariable("id") Long id,
+            @RequestBody Historico historico) {
+        var paciente = pacienteRepository.findById(id);
+        if (!paciente.isPresent()) {
+            return ResponseEntity.notFound().build(); 
+        }
+        historico.setPaciente(paciente.get());
+        return ResponseEntity.ok().body(historicoRepository.save(historico));
+    }
+
+    @GetMapping("/{id}/historico")
+    public ResponseEntity<List<Historico>> buscarHistorico(
+            @PathVariable("id") Long id) {
+        var paciente = pacienteRepository.findById(id);
+        if (!paciente.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<Historico> historico = historicoRepository.findByPaciente(paciente.get());
+        return ResponseEntity.ok().body(historico);
     }
     
     

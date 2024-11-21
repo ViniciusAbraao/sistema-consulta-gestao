@@ -30,7 +30,7 @@ public class Historico {
     private Long id;
 
     @NotEmpty
-    @Size(min = 2, max = 200)
+    @Size(min = 2, max = 500)
     private String texto;
 
     @JsonIgnore
