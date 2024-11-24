@@ -1,4 +1,6 @@
 package com.sistemaconsulta.gestao.model.domain;
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -29,8 +31,11 @@ public class Historico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private LocalDate data;
+
     @NotEmpty
-    @Size(min = 2, max = 200)
+    @Size(min = 2, max = 500)
     private String texto;
 
     @JsonIgnore
@@ -38,5 +43,7 @@ public class Historico {
     @JoinColumn(name = "id_paciente")
     @NotNull
     private Paciente paciente;
+
+    
 
 }
