@@ -36,8 +36,8 @@ public class Paciente implements Serializable{
 	private Integer idade;
 	
 	
-	/*@OneToMany(mappedBy = "paciente")
-    private Set<Historico> historico = new HashSet<>();*/
+	@OneToMany(mappedBy = "paciente")
+    private Set<Historico> historico = new HashSet<>();
 
 
 }
