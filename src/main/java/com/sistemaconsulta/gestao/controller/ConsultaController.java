@@ -56,7 +56,11 @@ public class ConsultaController {
 
 	@PostMapping("/agendar")
 	public ResponseEntity<Consulta> agendarConsulta(@RequestBody Consulta consulta) {
+		if (consulta.getStatus() == null) {
+	        consulta.setStatus(StatusConsulta.AGENDADA); 
+	    }
 		var consultaAgendada = consultaService.agendarConsulta(consulta);
+		consultaRepository.save(consulta);
 		return ResponseEntity.ok(consultaAgendada);
 	}
 
@@ -64,6 +68,16 @@ public class ConsultaController {
 	public ResponseEntity<Consulta> cancelarConsulta(@PathVariable Long consultaId) {
 		Consulta consultaCancelada = consultaService.cancelarConsulta(consultaId);
 		return ResponseEntity.ok(consultaCancelada);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		var con = consultaRepository.findById(id);
+		if (!con.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		consultaRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{id}")
@@ -77,5 +91,18 @@ public class ConsultaController {
 		return ResponseEntity.ok(consulta);
 	}
 
+	@PutMapping("/{id}/concluir")
+	public ResponseEntity<?> concluirConsulta(@PathVariable Long id) {
+		Consulta consulta = consultaService.findById(id);
+		if (consulta == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Consulta não encontrada");
+		}
+
+		consulta.setStatus(StatusConsulta.CONCLUIDA);
+
+		consultaRepository.save(consulta);
+
+		return ResponseEntity.ok().body("Consulta concluída com sucesso");
+	}
 
 }

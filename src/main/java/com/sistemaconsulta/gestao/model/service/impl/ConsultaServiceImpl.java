@@ -20,61 +20,63 @@ import com.sistemaconsulta.gestao.model.service.ConsultaService;
 @Service
 public class ConsultaServiceImpl implements ConsultaService {
 
-    @Autowired
-    private ConsultaRepository consultaRepository;
-    
-    @Autowired
-    private MedicoRepository medicoRepository;
-    
-    @Autowired
-    private PacienteRepository pacienteRepository;
+	@Autowired
+	private ConsultaRepository consultaRepository;
 
-    @Override
-    public List<Consulta> listar() {
-        return consultaRepository.findAll();
-    }
+	@Autowired
+	private MedicoRepository medicoRepository;
 
-    @Override
-    public Consulta salvar(Consulta consulta) throws ConsultaSalvarException {
-        return consultaRepository.save(consulta);
-    }
+	@Autowired
+	private PacienteRepository pacienteRepository;
+
+	@Override
+	public List<Consulta> listar() {
+		return consultaRepository.findAll();
+	}
+
+	@Override
+	public Consulta salvar(Consulta consulta) throws ConsultaSalvarException {
+		return consultaRepository.save(consulta);
+	}
 
 	@Override
 	public Consulta agendarConsulta(Consulta consulta) {
-		
-	   Medico medico = medicoRepository.findById(consulta.getMedico().getId())
-	        .orElseThrow(() -> new RuntimeException("Médico não encontrado"));
 
-	  
-	    Paciente paciente = pacienteRepository.findById(consulta.getPaciente().getId())
-	        .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
-	   
-	    Optional<Consulta> dataConsulta = consultaRepository.findByDataConsulta(consulta.getDataConsulta());
-	    
-	    Optional<Consulta> consultaExistente = consultaRepository.findByMedicoAndDataConsulta(medico, consulta.getDataConsulta());
-	        
+		Medico medico = medicoRepository.findById(consulta.getMedico().getId())
+				.orElseThrow(() -> new RuntimeException("Médico não encontrado"));
 
-	    if (consultaExistente.isPresent()) {
-	        throw new RuntimeException("Horário indisponível para este médico");
-	    }
+		Paciente paciente = pacienteRepository.findById(consulta.getPaciente().getId())
+				.orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
-	    consulta.setStatus(StatusConsulta.AGENDADA);
-	    return consultaRepository.save(consulta);
+		Optional<Consulta> dataConsulta = consultaRepository.findByDataConsulta(consulta.getDataConsulta());
+
+		Optional<Consulta> consultaExistente = consultaRepository.findByMedicoAndDataConsulta(medico,
+				consulta.getDataConsulta());
+
+		if (consultaExistente.isPresent()) {
+			throw new RuntimeException("Horário indisponível para este médico");
+		}
+
+		consulta.setStatus(StatusConsulta.AGENDADA);
+		return consultaRepository.save(consulta);
 	}
 
 	@Override
 	public Consulta cancelarConsulta(Long consultaId) {
 		Consulta consulta = consultaRepository.findById(consultaId)
-		        .orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
+				.orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
 
-		    if (StatusConsulta.CANCELADA.equals(consulta.getStatus())) {
-		        throw new RuntimeException("Consulta já foi cancelada");
-		    }
+		if (StatusConsulta.CANCELADA.equals(consulta.getStatus())) {
+			throw new RuntimeException("Consulta já foi cancelada");
+		}
 
-		    consulta.setStatus(StatusConsulta.CANCELADA);
-		    return consultaRepository.save(consulta);
+		consulta.setStatus(StatusConsulta.CANCELADA);
+		return consultaRepository.save(consulta);
 	}
 
+	public Consulta findById(Long id) {
+	    return consultaRepository.findById(id).orElse(null);
+	}
 
 
 

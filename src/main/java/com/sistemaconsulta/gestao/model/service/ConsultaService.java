@@ -14,8 +14,9 @@ public interface ConsultaService {
 	Consulta salvar(Consulta consulta) throws ConsultaSalvarException;
 
 	Consulta agendarConsulta(Consulta consulta);
-	
+
 	Consulta cancelarConsulta(Long consultaId);
-	
+
+	Consulta findById(Long id);
 
 }

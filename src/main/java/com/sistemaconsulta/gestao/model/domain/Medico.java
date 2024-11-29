@@ -35,7 +35,6 @@ public class Medico implements Serializable {
 	
     @NotBlank
     @Column(nullable = false)
-	@Size(min = 6, max = 6)
     private String crm;
 
    

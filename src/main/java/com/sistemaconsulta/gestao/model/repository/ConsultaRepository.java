@@ -1,5 +1,6 @@
 package com.sistemaconsulta.gestao.model.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -15,10 +16,12 @@ import com.sistemaconsulta.gestao.model.domain.Medico;
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
 	@Query("SELECT c FROM Consulta c WHERE c.medico.id = :medicoId AND c.dataConsulta = :dataConsulta")
-	Optional<Consulta> findByMedicoAndDataConsulta(Medico medico, LocalDateTime dataConsulta);
+	Optional<Consulta> findByMedicoAndDataConsulta(Medico medico, LocalDate dataConsulta);
 	
 	List<Consulta> findByPacienteId(Long pacienteId);
 
-	Optional<Consulta> findByDataConsulta(LocalDateTime dataConsulta);
+	Optional<Consulta> findByDataConsulta(LocalDate dataConsulta);
+	
+	Optional<Consulta> findById(Consulta consulta);
 
 }
