@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +34,11 @@ public class Paciente implements Serializable{
 	
 	@NotBlank
 	private String nome;
+
+	@CPF
+    @NotBlank
+    @Column(nullable = false)
+    private String cpf;
 	
 	@NotNull
 	private Integer idade;

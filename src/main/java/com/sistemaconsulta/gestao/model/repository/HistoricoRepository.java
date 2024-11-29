@@ -10,5 +10,6 @@ import com.sistemaconsulta.gestao.model.domain.Paciente;
 public interface HistoricoRepository extends JpaRepository<Historico, Long>{
 
     List<Historico> findByPaciente(Paciente paciente);
+    void deleteByPaciente(Paciente paciente);
 
 }
