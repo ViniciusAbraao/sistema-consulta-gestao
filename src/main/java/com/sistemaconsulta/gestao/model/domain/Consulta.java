@@ -2,7 +2,7 @@ package com.sistemaconsulta.gestao.model.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,6 +38,7 @@ public class Consulta implements Serializable {
 	private Paciente paciente;
 	
 	private LocalDate dataConsulta;
+	private LocalTime horario;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusConsulta status = (StatusConsulta.AGENDADA);
